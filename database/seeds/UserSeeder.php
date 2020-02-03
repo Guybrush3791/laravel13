@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\UserInfo;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 20) -> create();
+      factory(User::class, 20) -> create() -> each(function($user) {
+
+        $userInfo = factory(UserInfo::class) -> make();
+        $userInfo -> user() -> associate($user);
+        $userInfo -> save();
+      });
     }
 }

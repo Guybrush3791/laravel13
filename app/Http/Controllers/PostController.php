@@ -21,6 +21,12 @@ class PostController extends Controller
         return view('pages.post-index', compact('posts'));
     }
 
+    public function indexAdv()
+    {
+        $posts = Post::all();
+        return view('pages.post-index-adv', compact('posts'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -102,6 +108,19 @@ class PostController extends Controller
         return redirect() -> route('post.index');
     }
 
+    public function updateAxios(Request $request, $id) {
+
+      $data = $request -> all();
+
+      $post = Post::findOrFail($id);
+      $post -> update($data);
+
+      // $tags = Tag::find($data['tags']);
+      // $post -> tags() -> sync($tags);
+
+      return response() -> json($data, 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -121,5 +140,19 @@ class PostController extends Controller
         $post -> delete();
 
         return redirect() -> route('post.index');
+    }
+    public function destroyAxios($id) {
+
+      $post = Post::findOrFail($id);
+
+      // $post -> tags() -> detach();
+      $tags = $post -> tags;
+      foreach ($tags as $tag) {
+        $post -> tags() -> detach($tag);
+      }
+
+      $post -> delete();
+
+      return response() -> json($post, 200);
     }
 }

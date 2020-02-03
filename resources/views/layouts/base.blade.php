@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>BLOG</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}" charset="utf-8"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body>
     <header>
@@ -49,6 +51,12 @@
           <img class="picture_profile" src="{{ asset('images/' . Auth::user() -> image) }}">
 
         @endif
+
+      @endauth
+
+      @auth
+
+        <p>Token: {{ Auth::user() -> api_token  }}</p>
 
       @endauth
 

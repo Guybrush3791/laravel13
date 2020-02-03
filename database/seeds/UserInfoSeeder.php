@@ -14,12 +14,12 @@ class UserInfoSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserInfo::class, 20) -> make() -> each(function($userInfo) {
-
-          $user = User::inRandomOrder() -> first();
-          $userInfo -> user() -> associate($user);
-          $userInfo -> save();
-
-        });
+        // factory(UserInfo::class, 20) -> make() -> each(function($userInfo) {
+        //
+        //   $user = User::inRandomOrder() -> first();
+        //   $userInfo -> user() -> associate($user);
+        //   $userInfo -> save();
+        //
+        // });
     }
 }
